@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--Text panel with initial message-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv1"
+            android:textSize="10pt"
+            android:text="@string/Text1"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv2"
+            android:textSize="10pt"
+            android:text="@string/Text2"/>
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="fill_horizontal"
+            android:hint="@string/initMsg1"
+            android:inputType="textMultiLine"
+            android:textSize="10pt"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/tv1"/>
+
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="fill_horizontal"
+            android:hint="@string/initMsg2"
+            android:inputType="textMultiLine"
+            android:textSize="10pt"
+            android:layout_below="@id/et1"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@string/btn1" />
+
+        <org.osmdroid.views.MapView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:enabled="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/map1"
+            android:layout_below="@id/btn1"
+            tilesource="Mapnik"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

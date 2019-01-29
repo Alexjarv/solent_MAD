@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Mapping</string>
+    <string name="btn1">Go</string>
+    <string name="Text1">Latitude:</string>
+    <string name="Text2">Longtitude:</string>
+    <string name="initMsg1">10' 0''</string>
+    <string name="initMsg2">20' 0''</string>
+
+</resources>
