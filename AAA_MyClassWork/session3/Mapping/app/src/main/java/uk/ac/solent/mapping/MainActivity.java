@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -22,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 {
     //declare the variables here
     MapView mv;
-    public static final Double DEFAULT_LAT = 59.43;
-    public static final Double DEFAULT_LON = 24.72;
-    public static final Integer DEFAULT_ZOOM = 11;
+    public static final Double DEFAULT_LAT = 51.05;
+    public static final Double DEFAULT_LON = -0.72;
+    public static final Integer DEFAULT_ZOOM = 16;
 
     /** Called when the activity is first created. */
     @Override
@@ -55,6 +58,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         mv.setBuiltInZoomControls(true); //enables to zoom in the map
         mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
+    }
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(item.getItemId() == R.id.choosemap)
+        {
+            //react to the menu item being selected
+            Intent intent = new Intent(this, MapChooseActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return false;
     }
     // lat +90 to -90
     private Double parseLat(EditText geoEditText) { //declare a function parseLat with parameter EditText which is named geoEditText
