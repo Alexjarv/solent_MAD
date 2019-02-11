@@ -8,18 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-public class MapChooseActivity extends AppCompatActivity implements OnClickListener
-{
-
+public class SetLocationActivity extends AppCompatActivity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_choose);
+        setContentView(R.layout.activity_set_location);
 
-        Button regular = (Button) findViewById(R.id.btnRegular);
-        regular.setOnClickListener(this);
-        Button hikebike = (Button) findViewById(R.id.btnHikeBikeMap);
-        hikebike.setOnClickListener(this);
+        Button setLocationButton = (Button) findViewById(R.id.setLocationButton);
+        setLocationButton.setOnClickListener(this);
     }
 
     @Override
@@ -28,12 +24,10 @@ public class MapChooseActivity extends AppCompatActivity implements OnClickListe
         Bundle bundle = new Bundle();
         EditText latEditText = (EditText) findViewById(R.id.latitudeEditText);
         EditText lonEditText = (EditText) findViewById(R.id.longitudeEdiText);
-        boolean hikebikemap = false;
-        if (v.getId() == R.id.btnHikeBikeMap)
-        {
-            hikebikemap = true;
-        }
-        bundle.putBoolean("com.example.hikebikemap", hikebikemap);
+        String latResult = latEditText.getText().toString();
+        String lonResult = lonEditText.getText().toString();
+        bundle.putString("lon_results", lonResult);
+        bundle.putString("lat_results", latResult);
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();

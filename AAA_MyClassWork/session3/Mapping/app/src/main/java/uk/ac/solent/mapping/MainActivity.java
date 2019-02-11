@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
     }
-    public boolean onCreateOptionsMenu(Menu menu)
+    public boolean onCreateOptionsMenu(Menu menu) //create a menu option
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
@@ -71,10 +71,40 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         {
             //react to the menu item being selected
             Intent intent = new Intent(this, MapChooseActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
+            return true;
+        }
+        else if (item.getItemId() == R.id.setlocation){
+            Intent intent = new Intent(this, SetLocationActivity.class);
+            startActivityForResult(intent, 1);
             return true;
         }
         return false;
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if(requestCode == 0){
+            if (resultCode == RESULT_OK){
+                Bundle extras = intent.getExtras();
+                boolean hikebikemap = extras.getBoolean("com.example.hikebikemap");
+                if (hikebikemap == true){
+                    mv.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+                }
+                else{
+                    mv.setTileSource(TileSourceFactory.MAPNIK);
+                }
+            }
+        }
+        if(requestCode == 1){
+            if (resultCode == RESULT_OK) {
+                Bundle extras = intent.getExtras();
+                String latitude = extras.getString("lat_results");
+                String longtitude = extras.getString("lon_results");
+
+                Double latitudeDouble = Double.parseDouble(latitude);
+                Double longtitudeDouble = Double.parseDouble(longtitude);
+                mv.getController().setCenter(new GeoPoint(latitudeDouble, longtitudeDouble));
+            }
+        }
     }
     // lat +90 to -90
     private Double parseLat(EditText geoEditText) { //declare a function parseLat with parameter EditText which is named geoEditText
@@ -99,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     }
 
     //  long +180 to -180
-    private Double parseLong(EditText geoEditText) {
-        String input = geoEditText.getText().toString();
+    private Double parseLong(EditText geoEditText) { //declare a function parseLat with parameter EditText which is named geoEditText
+        String input = geoEditText.getText().toString(); // gets the text of geoEditText transfers into string and puts it into variable called string.
         try {
             Double longitude = Double.parseDouble(input);
             if (longitude > 180 || longitude < -180) {

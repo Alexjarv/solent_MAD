@@ -7,12 +7,12 @@
     >
 
 
-    <RelativeLayout android:orientation="horizontal" android:layout_width="match_parent"
+   <RelativeLayout android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/Text1"
+            android:text="@string/latString"
             android:textSize="10pt"
             android:layout_alignParentLeft="true"
             android:id="@+id/tv2"
@@ -26,7 +26,7 @@
             android:layout_toRightOf="@id/tv2"
             android:inputType="numberDecimal|numberSigned"
             android:textSize="10pt"
-            android:hint="@string/initMsg1"
+            android:hint="@string/latInitMsg"
             />
     </RelativeLayout>
 
@@ -35,7 +35,7 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/Text2"
+            android:text="@string/lonString"
             android:textSize="10pt"
             android:layout_alignParentLeft="true"
             android:id="@+id/tv3"
@@ -49,7 +49,7 @@
             android:layout_toRightOf="@id/tv3"
             android:inputType="numberDecimal|numberSigned"
             android:textSize="10pt"
-            android:hint="@string/initMsg2"
+            android:hint="@string/lonInitMsg"
             />
     </RelativeLayout>
 

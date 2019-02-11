@@ -2,14 +2,15 @@
     <string name="app_name">Mapping</string>
     <string name="btn1">Go</string>
     <string name="btn2">Reset</string>
-    <string name="Text1">Latitude:</string>
-    <string name="Text2">Longtitude:</string>
-    <string name="initMsg1">10'</string>
-    <string name="initMsg2">20'</string>
+    <string name="setLocationButton">Set Location</string>
+    <string name="latString">Latitude:</string>
+    <string name="lonString">Longtitude:</string>
+    <string name="latInitMsg">10'</string>
+    <string name="lonInitMsg">20'</string>
     <string name="choosemap">Choose Map</string>
     <string name="regularview">Regular Map</string>
     <string name="hikebikemapview">Hike and Bike Map</string>
     <string name="selectmap">Select map</string>
-
+    <string name="setlocation">Set Location</string>
 
 </resources>
