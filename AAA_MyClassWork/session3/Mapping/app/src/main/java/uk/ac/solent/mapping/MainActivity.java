@@ -1,5 +1,6 @@
 package uk.ac.solent.mapping;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     public static final Double DEFAULT_LAT = 51.05;
     public static final Double DEFAULT_LON = -0.72;
     public static final Integer DEFAULT_ZOOM = 16;
+    public boolean isRecording;
 
     /** Called when the activity is first created. */
     @Override
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     {
 
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null)
+        {
+            isRecording = savedInstanceState.getBoolean ("isRecording");
+        }
 
         // This line sets the user agent, a requirement to download OSM maps
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
@@ -59,12 +66,47 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
     }
+
+    public void onResume()
+    {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        double lat = Double.parseDouble ( prefs.getString("lat", "50.9") );
+        double lon = Double.parseDouble ( prefs.getString("lon", "-1.4") );
+        int zoom = Integer.parseInt ( prefs.getString("zoom", "11") );
+        boolean autodownload = prefs.getBoolean("autodownload", true);
+
+        // do something with the preference data...
+
+        EditText latEditText = (EditText) findViewById(R.id.latitude);
+        latEditText.setText(Double.toString(lat));
+        EditText lonEditText = (EditText) findViewById(R.id.longitude);
+        lonEditText.setText(Double.toString(lon));
+
+        // map parameters
+        mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
+        mv.setBuiltInZoomControls(true); //enables to zoom in the map
+        mv.getController().setZoom(zoom); //sets zoom level to variable declared as DEFAULT_ZOOM
+        mv.getController().setCenter(new GeoPoint(lat,lon)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
+
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean ("isRecording", isRecording);
+        editor.commit();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) //create a menu option
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if(item.getItemId() == R.id.choosemap)
@@ -78,9 +120,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             Intent intent = new Intent(this, SetLocationActivity.class);
             startActivityForResult(intent, 1);
             return true;
+        } else if (item.getItemId() == R.id.setDefaults){
+            Intent intent = new Intent(this, MyPrefsActivity.class);
+            startActivityForResult(intent, 2);
+            return true;
         }
         return false;
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         if(requestCode == 0){
             if (resultCode == RESULT_OK){
@@ -93,8 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                     mv.setTileSource(TileSourceFactory.MAPNIK);
                 }
             }
-        }
-        if(requestCode == 1){
+        } else if(requestCode == 1){
             if (resultCode == RESULT_OK) {
                 Bundle extras = intent.getExtras();
                 String latitude = extras.getString("lat_results");
@@ -103,6 +149,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                 Double latitudeDouble = Double.parseDouble(latitude);
                 Double longtitudeDouble = Double.parseDouble(longtitude);
                 mv.getController().setCenter(new GeoPoint(latitudeDouble, longtitudeDouble));
+            }
+        } else if (requestCode == 2){
+            if (resultCode == RESULT_OK) {
+                // gogogo
             }
         }
     }

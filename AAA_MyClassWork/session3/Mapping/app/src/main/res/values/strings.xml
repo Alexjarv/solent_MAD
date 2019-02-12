@@ -12,5 +12,6 @@
     <string name="hikebikemapview">Hike and Bike Map</string>
     <string name="selectmap">Select map</string>
     <string name="setlocation">Set Location</string>
+    <string name="setdefaults">Preferences</string>
 
 </resources>

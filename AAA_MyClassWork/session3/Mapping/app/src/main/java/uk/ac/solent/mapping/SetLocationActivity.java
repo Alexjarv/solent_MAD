@@ -20,10 +20,16 @@ public class SetLocationActivity extends AppCompatActivity implements OnClickLis
 
     @Override
     public void onClick(View v) {
+
+        // create bundle and intent to store result of inputing values in this layout
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
+
+
         EditText latEditText = (EditText) findViewById(R.id.latitudeEditText);
         EditText lonEditText = (EditText) findViewById(R.id.longitudeEdiText);
+
+
         String latResult = latEditText.getText().toString();
         String lonResult = lonEditText.getText().toString();
         bundle.putString("lon_results", lonResult);

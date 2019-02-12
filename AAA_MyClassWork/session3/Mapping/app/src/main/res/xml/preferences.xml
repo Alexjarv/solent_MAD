@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference android:key="lat" android:defaultValue="50.9" android:title="Latitude" android:summary="Latitude to show the map at initially." />
+
+    <EditTextPreference android:key="lon" android:defaultValue="-1.4" android:title="Longitude" android:summary="Longitude to show the map at initially." />
+
+    <EditTextPreference android:key="zoom" android:defaultValue="11" android:summary="Default Zoom to show the map at initially." android:title="Zoom" />
+
+    <ListPreference android:entries="@array/mapPreference" android:entryValues="@array/mapPreferenceCodes" android:key="mapPref"
+        android:summary="Default type of map to load at start" android:title="Map Preference" />
+
+    <CheckBoxPreference android:key="autodownload" android:defaultValue="true" android:title="Auto-download"
+        android:summary="Auto-download data about surrounding cinemas?" />
+
+    <ListPreference android:key="pizza" android:title="Pizza flavour" android:summary="Choose your pizza flavour."
+        android:entries="@array/pizzaFlavours" android:entryValues="@array/pizzaFlavourCodes" />
+
+</PreferenceScreen>

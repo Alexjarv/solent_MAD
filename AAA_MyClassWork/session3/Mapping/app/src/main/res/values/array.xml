@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pizzaFlavours">
+        <item>Cheese, Tomato and Mushroom</item>
+        <item>Ham and Pineapple</item>
+        <item>Hot n'Spicy</item>
+        <item>Seafood</item>
+    </string-array>
+
+    <string-array name="pizzaFlavourCodes">
+        <item>CTM</item>
+        <item>HP</item>
+        <item>HS</item>
+        <item>SF</item>
+    </string-array>
+
+    <string-array name="mapPreference">
+        <item>Normal Map</item>
+        <item>Cycle Map</item>
+    </string-array>
+
+    <string-array name="mapPreferenceCodes">
+        <item>normal</item>
+        <item>cycle</item>
+    </string-array>
+
+</resources>
