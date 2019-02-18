@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if(item.getItemId() == R.id.choosemap)
+        if(item.getItemId() == R.id.listChooseMap)
         {
             //react to the menu item being selected
-            Intent intent = new Intent(this, MapChooseActivity.class);
+            Intent intent = new Intent(this, ListMapChooseActivity.class);
             startActivityForResult(intent, 0);
             return true;
         }
@@ -123,6 +123,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         } else if (item.getItemId() == R.id.setDefaults){
             Intent intent = new Intent(this, MyPrefsActivity.class);
             startActivityForResult(intent, 2);
+            return true;
+        } else if (item.getItemId() == R.id.listActivity) {
+            Intent intent = new Intent(this, ExampleListActivity.class);
+            startActivityForResult(intent, 3);
+            return true;
+        } else if (item.getItemId() == R.id.listActivity2) {
+            Intent intent = new Intent(this, ExampleListActivity2.class);
+            startActivityForResult(intent, 4);
+            return true;
+        } else if (item.getItemId() == R.id.choosemap) {
+            Intent intent = new Intent(this, MapChooseActivity.class);
+            startActivityForResult(intent, 5);
             return true;
         }
         return false;
