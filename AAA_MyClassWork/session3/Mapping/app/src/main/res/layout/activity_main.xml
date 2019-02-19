@@ -16,62 +16,51 @@
             android:textSize="10pt"
             android:layout_alignParentLeft="true"
             android:id="@+id/tv2"
-            android:paddingRight="23dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/latitude"
-            android:layout_toRightOf="@id/tv2"
-            android:inputType="numberDecimal|numberSigned"
-            android:textSize="10pt"
-            android:hint="@string/latInitMsg"
             />
+
+       <TextView android:layout_width="50dp"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textSize="10pt"
+           android:layout_toRightOf="@id/tv2"
+           android:id="@+id/tv2_value"
+           />
+
+       <TextView android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:text="@string/lonString"
+           android:textSize="10pt"
+           android:paddingLeft="20dp"
+           android:layout_toRightOf="@id/tv2_value"
+           android:id="@+id/tv3"
+           />
+       <TextView android:layout_width="50dp"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textSize="10pt"
+           android:layout_toRightOf="@id/tv3"
+           android:id="@+id/tv3_value"
+           />
+
+       <TextView android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:text="@string/zoomString"
+           android:textSize="10pt"
+           android:paddingLeft="40dp"
+           android:layout_toRightOf="@id/tv3_value"
+           android:id="@+id/tv4"
+           />
+       <TextView android:layout_width="50dp"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textSize="10pt"
+           android:layout_toRightOf="@id/tv4"
+           android:id="@+id/tv4_value"
+           />
     </RelativeLayout>
 
-    <RelativeLayout android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/lonString"
-            android:textSize="10pt"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/tv3"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/longitude"
-            android:layout_toRightOf="@id/tv3"
-            android:inputType="numberDecimal|numberSigned"
-            android:textSize="10pt"
-            android:hint="@string/lonInitMsg"
-            />
-    </RelativeLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <Button android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn1"
-            android:text="@string/btn1" />
-
-        <Button android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn2"
-            android:text="@string/btn2" />
-
-    </LinearLayout>
 
     <org.osmdroid.views.MapView
         android:layout_width="match_parent"

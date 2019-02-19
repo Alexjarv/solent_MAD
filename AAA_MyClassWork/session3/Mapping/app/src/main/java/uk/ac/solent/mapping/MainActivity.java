@@ -16,13 +16,14 @@ import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener
+public class MainActivity extends AppCompatActivity
 {
     //declare the variables here
     MapView mv;
@@ -49,16 +50,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         setContentView(R.layout.activity_main); //sets the layout of the application for main activity
 
         // set default values to latitude and longtitude
-        EditText latEditText = (EditText) findViewById(R.id.latitude);
-        latEditText.setText(DEFAULT_LAT.toString());
-        EditText lonEditText = (EditText) findViewById(R.id.longitude);
-        lonEditText.setText(DEFAULT_LON.toString());
-
-        // create buttons and set listeners on them.
-        Button go = (Button) findViewById(R.id.btn1); // finds button by id and puts it into variable GO
-        go.setOnClickListener(this); //button go is set to listener for events (this) means this button.
-        Button cancel = (Button) findViewById(R.id.btn2); // finds button by id and puts it into variable CANCEL
-        cancel.setOnClickListener(this); //button cancel is set to listener for events (this) means this button.
+        TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+        latTextView.setText(DEFAULT_LAT.toString());
+        TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+        lonTextView.setText(DEFAULT_LON.toString());
+        TextView zoomTextView = (TextView) findViewById(R.id.tv4_value);
+        zoomTextView.setText(DEFAULT_ZOOM.toString());
 
         // map parameters
         mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
@@ -67,29 +64,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
     }
 
-    public void onResume()
-    {
-        super.onResume();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        double lat = Double.parseDouble ( prefs.getString("lat", "50.9") );
-        double lon = Double.parseDouble ( prefs.getString("lon", "-1.4") );
-        int zoom = Integer.parseInt ( prefs.getString("zoom", "11") );
-        boolean autodownload = prefs.getBoolean("autodownload", true);
+  //  public void onResume()
+//    {
+//        super.onResume();
 
-        // do something with the preference data...
-
-        EditText latEditText = (EditText) findViewById(R.id.latitude);
-        latEditText.setText(Double.toString(lat));
-        EditText lonEditText = (EditText) findViewById(R.id.longitude);
-        lonEditText.setText(Double.toString(lon));
-
-        // map parameters
-        mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
-        mv.setBuiltInZoomControls(true); //enables to zoom in the map
-        mv.getController().setZoom(zoom); //sets zoom level to variable declared as DEFAULT_ZOOM
-        mv.getController().setCenter(new GeoPoint(lat,lon)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
-
-    }
+ //   }
 
     public void onDestroy()
     {
@@ -158,16 +137,61 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                 String latitude = extras.getString("lat_results");
                 String longtitude = extras.getString("lon_results");
 
-                Double latitudeDouble = Double.parseDouble(latitude);
-                Double longtitudeDouble = Double.parseDouble(longtitude);
+                TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+                latTextView.setText(latitude);
+                TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+                lonTextView.setText(longtitude);
+
+                double latitudeDouble =DEFAULT_LAT;
+                double longtitudeDouble =DEFAULT_LON ;
+
+
+                try {
+                   latitudeDouble = Double.parseDouble(latitude);
+                    longtitudeDouble = Double.parseDouble(longtitude);
+                } catch (Exception ex){
+                    System.out.println("DEBUG problem "+ex.toString());
+                }
+
+                System.out.println("DEBUG ****************** returned lat="+latitudeDouble +" returned lon="+longtitudeDouble);
+
+
+
+                mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
                 mv.getController().setCenter(new GeoPoint(latitudeDouble, longtitudeDouble));
+                mv.setBuiltInZoomControls(true); //enables to zoom in the map
+                mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
+
             }
         } else if (requestCode == 2){
             if (resultCode == RESULT_OK) {
-                // gogogo
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                double lat = Double.parseDouble ( prefs.getString("lat", "50.9") );
+                double lon = Double.parseDouble ( prefs.getString("lon", "-1.4") );
+                int zoom = Integer.parseInt ( prefs.getString("zoom", "11") );
+                boolean autodownload = prefs.getBoolean("autodownload", true);
+
+               // do something with the preference data...
+
+                TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+                latTextView.setText(Double.toString(lat));
+                TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+                lonTextView.setText(Double.toString(lon));
+
+             // map parameters
+                mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
+                mv.setBuiltInZoomControls(true); //enables to zoom in the map
+                mv.getController().setZoom(zoom); //sets zoom level to variable declared as DEFAULT_ZOOM
+                mv.getController().setCenter(new GeoPoint(lat,lon)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
             }
         }
     }
+
+    // function to create a popup message
+    private void popupMessage(String message) {
+        new AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage(message).show();
+    }
+
     // lat +90 to -90
     private Double parseLat(EditText geoEditText) { //declare a function parseLat with parameter EditText which is named geoEditText
         String input = geoEditText.getText().toString(); // gets the text of geoEditText transfers into string and puts it into variable called string.
@@ -212,13 +236,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         }
     }
 
-    // function to create a popup message
-    private void popupMessage(String message) {
-        new AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage(message).show();
-    }
-
+    /*
     @Override
-    public void onClick(View view) {
+    /public void onClick(View view) {
         EditText lonEditText = (EditText) findViewById(R.id.longitude);
         EditText latEditText = (EditText) findViewById(R.id.latitude);
 
@@ -242,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         }
 
     }
+    */
 }
 
 

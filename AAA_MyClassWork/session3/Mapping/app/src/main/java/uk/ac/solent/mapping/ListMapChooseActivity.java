@@ -26,8 +26,6 @@ public class ListMapChooseActivity extends ListActivity {
     }
     public void onListItemClick(ListView lv, View view, int index, long id){
         //sss
-        String message = "You selected " + names[index];
-        popupMessage(message);
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         boolean hikebikemap = false;
