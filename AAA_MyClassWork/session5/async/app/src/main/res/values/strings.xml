@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">async</string>
+    <string name="tv1">hint</string>
+    <string name="btn1">GO</string>
+</resources>
