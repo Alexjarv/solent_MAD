@@ -2,4 +2,14 @@
     <string name="app_name">async</string>
     <string name="tv1">hint</string>
     <string name="btn1">GO</string>
+    <string name="getSongs">Get Songs for Artist</string>
+    <string name="addSong">Add Song</string>
+    <string name="mainscreen">Main Screen</string>
+    <string name="artist">Artist Name:</string>
+    <string name="artistHint">Enter Artist Name</string>
+    <string name="song">Song Title:</string>
+    <string name="songHint">Enter Song Title</string>
+    <string name="year">Song Year:</string>
+    <string name="yearHint">Enter Song Year</string>
+    <string name="description">POST MUSIC FREE</string>
 </resources>
