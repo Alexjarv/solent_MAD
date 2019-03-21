@@ -55,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     public String load(){
         String text="";
+        String line="";
         try{
             FileReader fr = new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath() + "/textedit.txt");
             BufferedReader reader = new BufferedReader(fr);
-            String line = "";
+            String[] components = line.split(",");
             while((line = reader.readLine()) != null){
                 text = text+line;
             }
