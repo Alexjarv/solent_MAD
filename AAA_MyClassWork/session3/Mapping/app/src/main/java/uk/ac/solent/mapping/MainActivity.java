@@ -1,6 +1,13 @@
 package uk.ac.solent.mapping;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -17,31 +24,34 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity implements LocationListener {
     //declare the variables here
     MapView mv;
     public static final Double DEFAULT_LAT = 51.05;
     public static final Double DEFAULT_LON = -0.72;
     public static final Integer DEFAULT_ZOOM = 16;
+    private FusedLocationProviderClient fusedLocationClient;
     public boolean isRecording;
 
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null)
-        {
-            isRecording = savedInstanceState.getBoolean ("isRecording");
+        if (savedInstanceState != null) {
+            isRecording = savedInstanceState.getBoolean("isRecording");
         }
 
         // This line sets the user agent, a requirement to download OSM maps
@@ -49,26 +59,110 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main); //sets the layout of the application for main activity
 
-        // set default values to latitude and longtitude
-        TextView latTextView = (TextView) findViewById(R.id.tv2_value);
-        latTextView.setText(DEFAULT_LAT.toString());
-        TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
-        lonTextView.setText(DEFAULT_LON.toString());
-        TextView zoomTextView = (TextView) findViewById(R.id.tv4_value);
-        zoomTextView.setText(DEFAULT_ZOOM.toString());
-
-        // map parameters
         mv = (MapView) findViewById(R.id.map1); // find the map by id and puts it into variable MV
         mv.setBuiltInZoomControls(true); //enables to zoom in the map
+
+        TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+        TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+        TextView zoomTextView = (TextView) findViewById(R.id.tv4_value);
+
+        LocationManager mgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+
+                            TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+                            TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+                            TextView zoomTextView = (TextView) findViewById(R.id.tv4_value);
+
+                            System.out.println("SUCCESS IS HERE FOR ME!!!!!!!!");
+
+                            latTextView.setText(Double.toString(location.getLatitude()));
+
+                            lonTextView.setText(Double.toString(location.getLongitude()));
+
+                            zoomTextView.setText(Integer.toString(DEFAULT_ZOOM));
+
+                            mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
+                            mv.getController().setCenter(new GeoPoint(location.getLatitude(),location.getLongitude())); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
+                        } else {
+
+                            TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+                            TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+                            TextView zoomTextView = (TextView) findViewById(R.id.tv4_value);
+
+                            System.out.println("DEFAULT IS HERE FOR ME!!!!!!!!");
+
+                            latTextView.setText(Double.toString(DEFAULT_LAT));
+
+                            lonTextView.setText(Double.toString(DEFAULT_LON));
+
+                            zoomTextView.setText(Integer.toString(DEFAULT_ZOOM));
+
+                            mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
+                            mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
+                        }
+                    }
+                });
+
+        System.out.println("I SET THE LAT AND LON IS HERE FOR ME!!!!!!!!");
+        latTextView.setText(Double.toString(DEFAULT_LAT));
+
+        lonTextView.setText(Double.toString(DEFAULT_LON));
+
+        zoomTextView.setText(Integer.toString(DEFAULT_ZOOM));
+
         mv.getController().setZoom(DEFAULT_ZOOM); //sets zoom level to variable declared as DEFAULT_ZOOM
         mv.getController().setCenter(new GeoPoint(DEFAULT_LAT,DEFAULT_LON)); //sets the center of the map to variables DEFAULT_LAT and DEFAULT_LON
     }
+
+
 
   //  public void onResume()
 //    {
 //        super.onResume();
 
  //   }
+
+    public void onLocationChanged(Location newLoc){
+        TextView latTextView = (TextView) findViewById(R.id.tv2_value);
+        TextView lonTextView = (TextView) findViewById(R.id.tv3_value);
+
+        latTextView.setText(Double.toString(newLoc.getLatitude()));
+        lonTextView.setText(Double.toString(newLoc.getLongitude()));
+        mv.getController().setCenter(new GeoPoint(newLoc.getLatitude(), newLoc.getLongitude()));
+    }
+
+    public void onProviderDisabled(String provider){
+        Toast.makeText(this, "Provider " + provider +
+                " disabled", Toast.LENGTH_LONG).show();
+    }
+
+    public void onProviderEnabled(String provider){
+        Toast.makeText(this, "Provider " + provider +
+                " enabled", Toast.LENGTH_LONG).show();
+    }
+
+    public void onStatusChanged(String provider,int status,Bundle extras){
+        Toast.makeText(this, "Status changed: " + status,
+                Toast.LENGTH_LONG).show();
+    }
 
     public void onDestroy()
     {
