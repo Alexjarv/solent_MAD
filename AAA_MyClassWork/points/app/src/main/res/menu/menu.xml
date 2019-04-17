@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_point" android:title="@string/new_point"/>
+    <item android:id="@+id/points_list" android:title="@string/points_list"/>
+    <item android:id="@+id/save_file" android:title="@string/save_points"/>
+    <item android:id="@+id/load_file" android:title="@string/load_points"/>
+    <item android:id="@+id/download" android:title="@string/download_from_web"/>
+    <item android:id="@+id/preferences" android:title="@string/preferences"/>
+</menu>

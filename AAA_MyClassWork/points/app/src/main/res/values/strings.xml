@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Points</string>
+    <string name="newpoint">Adding a new point</string>
+    <string name="preferences">Preference Activity</string>
+    <string name="description">Description</string>
+    <string name="type">Type</string>
+    <string name="name">Name</string>
+    <string name="new_point">NEW POINT</string>
+    <string name="points_list">Points List</string>
+    <string name="save_points">Save Points</string>
+    <string name="load_points">Load Points</string>
+    <string name="download_from_web">Download from Web</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+        android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="10dp">
+
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:id="@+id/nameText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_margin="20dp" android:textSize="16sp" android:text="@string/name"/>
+            <EditText android:id="@+id/nameEdit" android:layout_width="match_parent"
+                android:layout_height="60dp" android:typeface="serif"/>
+        </LinearLayout>
+
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:id="@+id/typeText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:padding="20dp" android:textSize="16sp" android:text="@string/type"/>
+            <EditText android:id="@+id/typeEdit" android:layout_width="match_parent"
+                android:layout_height="60dp" android:typeface="serif"/>
+        </LinearLayout>
+
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:id="@+id/descText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:padding="20dp" android:textSize="16sp" android:text="@string/description"/>
+            <EditText android:id="@+id/descEdit" android:layout_width="match_parent" android:layout_height="120dp"
+                android:typeface="serif" android:textStyle="italic" android:inputType="textMultiLine" android:gravity="start|top"/>
+            <Button android:id="@+id/newPointBtn" android:layout_margin="20dp" android:layout_gravity="center"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="48sp" android:padding="24dp"
+                android:text="@string/new_point"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
